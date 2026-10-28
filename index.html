@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet PoultryVision, a chicken behavior monitoring project designed to help farmers notice unusual flock behavior earlier.">
+  <title>PoultryVision | Smarter Flock Monitoring</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/services.js" defer></script>
+  <script src="js/components.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body data-page="home" data-auth="out">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="PoultryVision home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c0-4.2 3.1-7.5 7-7.5s7 3.3 7 7.5"/><path d="M4 15h16l-1.4 4H5.4L4 15Z"/><path d="M10 7.5c-.7-1.9.1-3.8 2-4.5 1.8 1 2.2 2.5 1.1 4.2"/><path d="M19 11.5h2"/></svg></span>
+        <span class="brand-copy"><span class="brand-name">PoultryVision</span><span class="brand-tagline">Flock health insights</span></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="nav-links" id="primary-navigation" data-navigation aria-label="Main navigation">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="about.html" data-nav="about">About</a>
+        <a href="contact.html" data-nav="contact">Contact</a>
+        <div class="nav-auth" data-auth-slot><a href="login.html" data-nav="login">Log in</a></div>
+        <a class="nav-cta" href="#download">Explore the system</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Smarter flock monitoring</p>
+          <h1>A healthier flock starts with <span>noticing the little changes.</span></h1>
+          <p class="lead">PoultryVision is a chicken behavior scanning project built to help farmers notice unusual changes in activity and behavior, so they can make more informed decisions about flock care.</p>
+          <div class="button-row">
+            <button class="button" type="button" data-download-system aria-haspopup="dialog">Download the system now <svg class="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/></svg><svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
+            <a class="button button-secondary" href="#how-it-works">How it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          </div>
+          <p class="download-hint hero-hint" data-download-hint>Free account required to download.</p>
+          <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg><span>This project is still in development. It is intended to support observation, not replace advice from a qualified veterinarian.</span></p>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-image-frame"><img src="assets/images/chicken-portrait.jpg" alt="Close-up portrait of a white chicken" width="451" height="659"></div>
+          <div class="floating-note"><span class="floating-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l2-6 4 12 2-6h7"/></svg></span><div><strong>Behavior first</strong><span>Notice changes. Respond thoughtfully.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Project focus">
+      <div class="container trust-inner">
+        <span class="trust-title">Designed around practical flock care</span>
+        <div class="trust-points">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Behavior observation</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Earlier awareness</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Farmer-friendly goals</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Why PoultryVision</p>
+          <h2>Small behavior changes can matter.</h2>
+          <p>The website introduces a future scanning tool intended to make observation more organized. These are project goals, not features that are already available in a finished scanner.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+            <h3>Observe behavior</h3>
+            <p>Build a clearer picture of everyday movement and activity patterns within a flock.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 5-6"/><path d="M16 7h3v3"/></svg></span>
+            <h3>Notice unusual changes</h3>
+            <p>Help bring attention to behavior that may deserve a closer look instead of relying on memory alone.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <h3>Support better decisions</h3>
+            <p>Give farmers another source of information when deciding whether to inspect a bird or ask a veterinarian for advice.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="how-it-works">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">The planned workflow</p>
+          <h2>From observation to action.</h2>
+          <p>The final workflow will depend on how the scanning system is built. This is the intended direction for the project.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step"><span class="step-number" aria-hidden="true"></span><h3>Capture behavior</h3><p>Collect a suitable image or video sample of chicken activity using the planned scanner.</p></article>
+          <article class="step"><span class="step-number" aria-hidden="true"></span><h3>Review indicators</h3><p>Analyze selected behavior patterns and flag observations that may warrant attention.</p></article>
+          <article class="step"><span class="step-number" aria-hidden="true"></span><h3>Follow up carefully</h3><p>Use the information alongside regular flock checks and veterinary guidance when needed.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download">
+      <div class="container">
+        <div class="download-panel">
+          <div class="download-copy">
+            <p class="eyebrow">Members download</p>
+            <h2>Get the Chicken Scanner system.</h2>
+            <p>Log in or create a free account to download. The download is available to account holders only.</p>
+            <div class="project-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg><span><strong>Development note:</strong> The real scanner is not finished yet, so for now the download is a small placeholder text file that proves your account works.</span></div>
+          </div>
+          <div class="download-action"><button class="button button-gold" type="button" data-download-system aria-haspopup="dialog">Download the system now <svg class="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/></svg><svg class="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button><p class="download-hint" data-download-hint>Free account required to download.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c0-4.2 3.1-7.5 7-7.5s7 3.3 7 7.5"/><path d="M4 15h16l-1.4 4H5.4L4 15Z"/><path d="M10 7.5c-.7-1.9.1-3.8 2-4.5 1.8 1 2.2 2.5 1.1 4.2"/></svg></span><span class="brand-copy"><span class="brand-name">PoultryVision</span><span class="brand-tagline">Flock health insights</span></span></a>
+          <p>A project exploring how chicken behavior monitoring could help farmers notice changes and make informed flock-care decisions.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation"><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="login.html">Log in</a></nav>
+      </div>
+      <div class="footer-bottom"><p>© <span data-current-year>2026</span> PoultryVision. Student project.</p><p>Informational support only — not a veterinary diagnosis.</p></div>
+    </div>
+  </footer>
+  <div class="site-notice-wrap"><div class="site-notice" data-site-notice role="status" aria-live="polite" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg><span data-notice-message></span></div></div>
+</body>
+</html>
