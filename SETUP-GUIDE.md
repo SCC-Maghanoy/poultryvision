@@ -4,7 +4,7 @@ Do the parts in order. Part A makes login/sign-up work on your computer. Part B 
 
 ---
 
-## Part A: Supabase (login and sign-up)
+## Part A: Supabase (login, sign-up, and video storage)
 
 ### A1. Wait for the project to finish starting
 Your dashboard showed **Status: Coming up...**. Wait until it says healthy/active (a minute or two) and refresh.
@@ -54,13 +54,22 @@ Go to **Authentication** then **Configuration** then **URL Configuration** and s
 
 Click **Save**. (Port 5501 comes from your `.vscode/settings.json`. Change it if you change that file.)
 
-### A6. Test it on your computer
-1. Open the folder in VS Code and right-click `index.html` then **Open with Live Server**.
-2. Click **Download the system now**. A popup should ask you to log in.
-3. Click **Create an account**, sign up, and you should land back on the home page, saying "Hi, your name".
-4. Click **Download the system now** again. A `PoultryVision-demo-download.txt` file downloads.
-5. In Supabase go to **Authentication** then **Users**. Your new user is listed there.
+### A6. Configure private video storage
+1. In VS Code, open `STORAGE-SETUP.sql`.
+2. Copy the full SQL into Supabase Dashboard → **SQL Editor** → **New query**, then click **Run**.
+3. Confirm a private bucket named `poultry-videos` appears under **Storage**. The SQL creates owner-only policies for uploading, listing and deleting videos.
+4. Open **Storage → Settings** and check **Global file size limit**. The bucket SQL sets a bucket-level limit of 250 MB, but a lower global limit always takes priority.
 
+> **Important size limit:** Supabase Free currently allows individual uploads up to 50 MB. The website validates files up to 250 MB, but a Free project will still reject files over 50 MB. A plan and global setting that support 250 MB are required for the full limit. Supabase Free currently includes 1 GB total Storage, so delete test videos when finished.
+
+### A7. Test it on your computer
+1. Open the folder in VS Code and right-click `index.html`, then choose **Open with Live Server**.
+2. Click **Use the system now**. A popup should ask you to log in.
+3. Create an account or log in, then click **Use the system now** again.
+4. Choose an MP4, MOV or WebM chicken clip that is 30 seconds or shorter. Wait for the private Storage upload to finish; **Analyze chicken** unlocks only after upload succeeds.
+5. Click **Analyze chicken**. The timed prototype sequence takes 20–60 seconds; click **See result** when it finishes.
+6. Click **Delete video & analyze again** and confirm to permanently remove the clip from your Storage folder before uploading another.
+7. In Supabase, check **Authentication → Users** and **Storage → poultry-videos** to see the test account and stored file. The report is a randomized UI simulation, not a real diagnosis.
 ---
 
 ## Part B: Put it on GitHub with Git
@@ -116,7 +125,7 @@ git push
 4. Wait 1 to 3 minutes and refresh. GitHub shows your live address:
    `https://scc-maghanoy.github.io/poultryvision/`
 5. Make sure that address is in Supabase **URL Configuration** (step A5).
-6. Open the live site and repeat the test from A6.
+6. Open the live site and repeat the test from A7.
 
 ---
 
@@ -125,7 +134,11 @@ git push
 | Problem | Fix |
 |---|---|
 | Can't find the Project URL | It is not on the API Keys page. See step A2: Project Home, the Connect button, or Integrations > Data API. |
-| Form says "Supabase is not set up yet" | `js/config.js` still has the placeholder text. Paste your real URL and key. |
+| Form says "Supabase is not set up yet" | Check the Project URL and publishable key in `js/config.js`. |
+| Workspace says the bucket is missing | Run `STORAGE-SETUP.sql` in Supabase SQL Editor. |
+| Upload says Storage permission denied | Re-run `STORAGE-SETUP.sql`, confirm the owner-only Storage policies exist, and ensure the user is signed in. |
+| Supabase rejects a video larger than 50 MB | This is the current Supabase Free per-file upload cap. The project-wide limit must support 250 MB; the website cannot override a lower server limit. |
+| The 30-second clip is rejected | The site reads the actual video metadata. Trim the file to 30 seconds or less and export as MP4 or WebM. |
 | "Could not load the Supabase library" | You are offline, or an ad-blocker blocked `cdn.jsdelivr.net`. |
 | Sign-up says "email rate limit exceeded" | Turn OFF "Confirm email" (step A4) and wait about an hour. |
 | Confirmation email link goes to the wrong place | Fix **Site URL** and **Redirect URLs** in Authentication, Configuration, URL Configuration (step A5). |

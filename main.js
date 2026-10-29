@@ -2,12 +2,13 @@
  * PoultryVision website interactions.
  *
  * Load order on every page (see the <script> tags in each HTML file):
- *   supabase library -> js/config.js -> js/services.js -> js/components.js -> main.js
+ *   Supabase + TUS libraries -> js/config.js -> js/services.js -> js/components.js
+ *   -> js/scanner.js -> main.js (the scanner script is included on the home page)
  *
  * This file holds the PAGE CONTROLLERS: one object per page, built from a shared parent class.
  *
  *   PageController                  shared: menu, footer year, login state, notices
- *   |-- HomePageController          protects the download button
+ *   |-- HomePageController          protects the scanner workspace
  *   |-- AboutPageController
  *   |-- DemoFormController          form that is not connected to anything yet
  *   |   `-- ContactPageController
@@ -23,12 +24,10 @@ class PageController {
   #notice;
   #auth;
   #authNav;
-  #downloads;
 
-  constructor(pageKey, auth, downloads = null) {
+  constructor(pageKey, auth) {
     this.#pageKey = pageKey;
     this.#auth = auth;
-    this.#downloads = downloads;
     this.#menuButton = document.querySelector("[data-menu-toggle]");
     this.#navigation = document.querySelector("[data-navigation]");
     this.#notice = new Notice(document.querySelector("[data-site-notice]"));
@@ -48,9 +47,6 @@ class PageController {
     return this.#auth;
   }
 
-  get downloads() {
-    return this.#downloads;
-  }
 
   async init() {
     this.#setupNavigation();
@@ -135,40 +131,42 @@ class PageController {
 }
 
 class HomePageController extends PageController {
-  #downloadButtons = [];
-  #modal = new AuthModal({ redirectTo: "index.html#download" });
+  #systemButtons = [];
+  #authModal = new AuthModal({ redirectTo: "index.html#download" });
+  #scannerModal;
 
-  constructor(auth, downloads) {
-    super("home", auth, downloads);
+  constructor(auth, videoStorage) {
+    super("home", auth);
+    this.#scannerModal = new ChickenScannerModal(videoStorage);
   }
 
   getPageKey() {
     return "home";
   }
 
-  // Overrides PageController.onReady() to protect the download buttons.
   onReady() {
-    this.#downloadButtons = Array.from(document.querySelectorAll("[data-download-system]"));
-    this.#downloadButtons.forEach((button) => {
-      button.addEventListener("click", () => this.#handleDownloadClick());
+    this.#systemButtons = Array.from(document.querySelectorAll("[data-download-system]"));
+    this.#systemButtons.forEach((button) => {
+      button.addEventListener("click", () => this.#handleSystemClick());
     });
   }
 
-  // Overrides PageController.onAuthChanged() to update the hint text under the download button.
   onAuthChanged(user) {
     document.querySelectorAll("[data-download-hint]").forEach((element) => {
-      element.textContent = user ? `Signed in as ${user.email}. You can download now.` : "Free account required to download.";
+      element.textContent = user
+        ? `Signed in as ${user.email}. Your scanner workspace is ready.`
+        : "Log in to unlock the scanner workspace.";
     });
-    if (user && this.#modal.isOpen) this.#modal.close();
+    if (user && this.#authModal.isOpen) this.#authModal.close();
+    if (!user && this.#scannerModal.isOpen) this.#scannerModal.close();
   }
 
-  #handleDownloadClick() {
+  #handleSystemClick() {
     if (!this.auth.isLoggedIn) {
-      this.#modal.open(); // not logged in: show the popup instead of downloading
+      this.#authModal.open();
       return;
     }
-    const fileName = this.downloads.download(this.auth.user);
-    this.showNotice(`Your download has started: ${fileName}`, { type: "success" });
+    this.#scannerModal.open(this.auth.user);
   }
 }
 
@@ -378,7 +376,7 @@ class RegisterPageController extends AuthPageController {
 
 /** Factory: picks the right controller for the current page (polymorphism in action). */
 class PageControllerFactory {
-  static create(pageKey, auth, downloads) {
+  static create(pageKey, auth, videoStorage) {
     switch (pageKey) {
       case "about":
         return new AboutPageController(auth);
@@ -390,13 +388,14 @@ class PageControllerFactory {
         return new RegisterPageController(auth);
       case "home":
       default:
-        return new HomePageController(auth, downloads);
+        return new HomePageController(auth, videoStorage);
     }
   }
 }
 
 // Start-up: build the shared services once, then hand them to the page's controller.
-const authService = new AuthService(PV_CONFIG);
-const downloadService = new DemoTextDownloadService(); // swap for a real DownloadService child class later
-const pageController = PageControllerFactory.create(document.body.dataset.page || "home", authService, downloadService);
+const supabaseProvider = new SupabaseClientProvider(PV_CONFIG);
+const authService = new AuthService(supabaseProvider);
+const videoStorageService = new SupabaseVideoStorageService(supabaseProvider, PV_CONFIG.STORAGE_BUCKET || "poultry-videos");
+const pageController = PageControllerFactory.create(document.body.dataset.page || "home", authService, videoStorageService);
 pageController.init();
