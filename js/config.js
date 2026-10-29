@@ -15,4 +15,7 @@
 const PV_CONFIG = Object.freeze({
   SUPABASE_URL: "https://anuioonnbdpslnvinzup.supabase.co",
   SUPABASE_KEY: "sb_publishable_czmoIPVs4ON_7G8XI7uNcg_4GUpLrHW",
+  STORAGE_BUCKET: "poultry-videos",
+  MAX_VIDEO_SIZE_BYTES: 250 * 1024 * 1024,
+  MAX_VIDEO_DURATION_SECONDS: 30,
 });

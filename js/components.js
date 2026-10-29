@@ -134,8 +134,8 @@ class AuthModal {
       { class: "modal", role: "dialog", "aria-modal": "true", "aria-labelledby": "auth-modal-title", "aria-describedby": "auth-modal-text" },
       closeButton,
       Dom.create("span", { class: "modal-icon" }, Dom.svg(["M7 11V8a5 5 0 0 1 10 0v3", "M5 11h14v10H5z"])),
-      Dom.create("h2", { id: "auth-modal-title", text: "Log in to download" }),
-      Dom.create("p", { id: "auth-modal-text", text: "The PoultryVision download is available to account holders. Log in, or create a free account in less than a minute." }),
+      Dom.create("h2", { id: "auth-modal-title", text: "Log in to use PoultryVision" }),
+      Dom.create("p", { id: "auth-modal-text", text: "The scanner workspace is available to signed-in account holders. Log in, or create a free account in less than a minute." }),
       Dom.create(
         "div",
         { class: "modal-actions" },
